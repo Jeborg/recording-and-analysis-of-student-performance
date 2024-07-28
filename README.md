@@ -1,1 +1,1 @@
-University final project created in Django framework
+# University final project created in *Django framework*
