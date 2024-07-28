@@ -1,0 +1,42 @@
+{% extends 'main/index.html' %}
+
+<title>Средний балл по группе | Университет</title>
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <div class="card card-body">
+                <div class="btn-group">
+                    <a class="btn btn-sm btn-info" href="{% url 'studentsAverageGradeByGroup' %}" >Средний балл по группе</a>
+                    &nbsp;
+                    <a class="btn btn-sm btn-info" href="#" >Средний балл по студенту</a>
+                    &nbsp;
+                    <a class="btn btn-sm btn-success" href="{% url 'exportStudentsAverageGradeByGroup' %}">Скачать в Excel</a>
+                </div>
+            &nbsp;
+            <h5 class="card-title">Средний балл по группе:</h5>
+            <table class="table table_sm">
+                <tr>
+                    <th>Предмет</th>
+                    <th>Группа</th>
+                    <th>Средний балл</th>
+                </tr>
+
+                {% for grade in studentsAverGrade %}
+
+                <tr>
+                    <td>{{grade.subject_name}}</td>
+                    <td>{{grade.group_name}}</td>
+                    <td>{{grade.average_grade |floatformat:2}}</td>
+                </tr>
+
+                {% endfor %}
+
+            </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

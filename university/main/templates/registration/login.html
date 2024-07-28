@@ -1,0 +1,27 @@
+{% load static %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static '/css/styles.css' %}">
+<style>
+    body{    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    }
+</style>
+<body>
+{% block content %}
+<div class="shadow-wrap">
+ <div class="form-wrap">
+  <h3>Введите данные для входа: </h3>
+<form method="POST">
+ {% csrf_token %}
+ {{form}}
+ <button type="submit">Войти</button>
+</form>
+</div>
+</div>
+</body>
+{% endblock content %}

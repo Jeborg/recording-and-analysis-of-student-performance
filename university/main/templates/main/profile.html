@@ -1,0 +1,54 @@
+{% extends 'main/index.html' %}
+
+<title>Личный кабинет | Университет</title>
+
+{% block content %}
+{% if is_student %} 
+<div class="col-md">
+    <div class="card card-body">
+        <h4 class="card-title"><b>Личный кабинет студента</b></h4>
+        <div class="card card-body">
+
+        {% for i in student_info %}
+
+        <h5>ФИО: &nbsp; {{i.0}} {{i.1}} {{i.2}}</h5>
+        <hr>
+        <h5>Курс: &nbsp; {{i.6}}</h5>
+        <hr>
+        <h5>E-mail: &nbsp; {{i.3}}</h5>
+        <hr>
+        <h5>Группа: &nbsp; {{i.4}}</h5>
+        <hr>
+        <h5>Положение: &nbsp; {{i.5}}</h5>
+
+        {% endfor %}
+
+        </div>
+    </div>
+    <a class="btn btn-sm btn-danger" href="{% url 'logout' %}?next=/" >Выйти из учётной записи</a>
+</div>
+{% endif %}
+
+{% if is_professor %}
+<div class="col-md">
+    <div class="card card-body">
+        <h4 class="card-title"><b>Личный кабинет преподавателя</b></h4>
+        <div class="card card-body">
+
+        {% for i in professor_info %}
+
+        <h5>ФИО: &nbsp; {{i.0}} {{i.1}} {{i.2}}</h5>
+        <hr>
+        <h5>E-mail: &nbsp; {{i.3}}</h5>
+        <hr>
+        <h5>Положение: &nbsp; {{i.4}}</h5>
+        <hr>
+        <h5>Дисциплины: &nbsp; {{i.5}}</h5>
+
+        {% endfor %}
+        </div>
+    </div>
+    <a class="btn btn-sm btn-danger" href="{% url 'logout' %}?next=/" >Выйти из учётной записи</a>
+</div>
+{% endif %}
+{% endblock content %}

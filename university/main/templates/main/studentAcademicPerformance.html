@@ -1,0 +1,52 @@
+{% extends 'main/index.html' %}
+
+<title>Успеваемость | Университет</title>
+
+{% block content %}
+
+<div class="row">
+    <div class="col">
+        <div class="card card-body">
+            <form method="get" action=".">
+                <label for="subject_name">Предмет:</label>
+                <input type="text" id="subject_name" name="subject_name" value="{{ request.GET.subject_name }}">
+                <label for="course">Курс:</label>
+                <input type="text" id="course" name="course" value="{{ request.GET.course }}">
+                <label for="type">Тип оценивания:</label>
+                <input type="text" id="type" name="type" value="{{ request.GET.type }}">
+                <button class="btn btn-warning" type="submit">Найти</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <h5 class="card-title">Успеваемость:</h5>
+            <table class="table table_sm">
+                <tr>
+                    <th>Предмет</th>
+                    <th>Курс</th>
+                    <th>Дата</th>
+                    <th>Балл</th>
+                    <th>Тип оценивания</th>
+                </tr>
+
+                {% for score in scores_data %}
+
+                <tr>
+                    <td>{{score.subject_name}}</td>
+                    <td>{{score.course}}</td>
+                    <td>{{score.date}}</td>
+                    <td>{{score.value}}</td>
+                    <td>{{score.type}}</td>
+                </tr>
+
+                {% endfor %}
+
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}

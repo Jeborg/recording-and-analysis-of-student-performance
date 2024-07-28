@@ -1,0 +1,132 @@
+{% extends 'main/index.html' %}
+
+<title>Успеваемость студентов | Университет</title>
+
+{% block content %}
+
+<div class="row">
+    <div class="col">
+        <div class="card card-body">
+            <form method="get" action=".">
+                <label for="group_name">Группа:</label>
+                <input type="text" id="group_name" name="group_name" value="{{ request.GET.group_name }}">
+                <label for="subject_name">Дисциплина:</label>
+                <input type="text" id="subject_name" name="subject_name" value="{{ request.GET.subject_name }}">
+                <label for="course">Курс:</label>
+                <input type="text" id="course" name="course" value="{{ request.GET.course }}">
+                <label for="type">Тип оценивания:</label>
+                <input type="text" id="type" name="type" value="{{ request.GET.type }}">
+                <button class="btn btn-warning" type="submit">Найти</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <form method="post" action="{% url 'control' %}">
+                {% csrf_token %}
+                <table class="table table_sm" id="performanceTable">
+                    <thead>
+                        <tr>
+                            <th>ФИО</th>
+                            <th>Группа</th>
+                            <th>Дисциплина</th>
+                            <th>Курс</th>
+                            <th>Время оценивания</th>
+                            <th>Тип оценивания</th>
+                            <th>Оценка</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in academicPerformance %}
+                            <tr>
+                                <td>
+                                    <input type="hidden" name="student_id" value="{{ i.student_id }}">
+                                    <div class="fio">
+                                        <input type="text" name="last_name" value="{{ i.last_name }}" placeholder="Фамилия">
+                                        <input type="text" name="first_name" value="{{ i.first_name }}" placeholder="Имя">
+                                        <input type="text" name="middle_name" value="{{ i.middle_name }}" placeholder="Отчество">
+                                    </div>
+                                </td>
+                                <td>
+                                    <input type="hidden" name="group_id" value="{{ i.group_id }}">
+                                    <input type="text" name="group_name" value="{{ i.group_name }}">
+                                </td>
+                                <td>
+                                    <input type="hidden" name="subject_id" value="{{ i.subject_id }}">
+                                    <input type="text" name="subject_name" value="{{ i.subject_name }}">
+                                </td>
+                                <td><input type="text" name="course" value="{{ i.course }}"></td>
+                                <td>
+                                    <input type="hidden" name="score_id" value="{{ i.score_id }}">
+                                    <input type="date" name="date" value="{{ i.date }}">
+                                </td>
+                                <td><input type="text" name="type" value="{{ i.type }}"></td>
+                                <td><input type="text" name="value" value="{{ i.value }}"></td>
+                            </tr>
+                        {% endfor %}
+                        <tr id="newRowTemplate" style="display: none;">
+                            <td>
+                                <input type="hidden" name="student_id">
+                                <div class="fio">
+                                    <input type="text" name="last_name" placeholder="Фамилия">
+                                    <input type="text" name="first_name" placeholder="Имя">
+                                    <input type="text" name="middle_name" placeholder="Отчество">
+                                </div>
+                            </td>
+                            <td>
+                                <input type="hidden" name="group_id">
+                                <input type="text" name="group_name">
+                            </td>
+                            <td>
+                                <input type="hidden" name="subject_id">
+                                <input type="text" name="subject_name">
+                            </td>
+                            <td><input type="text" name="course"></td>
+                            <td>
+                                <input type="hidden" name="score_id">
+                                <input type="date" name="date">
+                            </td>
+                            <td><input type="text" name="type"></td>
+                            <td><input type="text" name="value"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button type="button" onclick="addRow()">Добавить строку</button>
+                <button type="button" onclick="deleteRow()">Удалить строку</button>
+                <button type="submit">Сохранить</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function addRow() {
+        let table = document.getElementById("performanceTable").getElementsByTagName('tbody')[0];
+        let newRow = document.getElementById("newRowTemplate").cloneNode(true);
+        newRow.style.display = "";
+        newRow.removeAttribute("id");
+        table.appendChild(newRow);
+    }
+
+    function deleteRow() {
+        let table = document.getElementById("performanceTable").getElementsByTagName('tbody')[0];
+        if (table.rows.length > 1) {
+            table.deleteRow(table.rows.length - 1);
+        }
+    }
+</script>
+
+<style>
+    .fio {
+        display: flex;
+        flex-direction: column;
+    }
+    .fio input {
+        margin-bottom: 5px;
+    }
+</style>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'main/index.html' %}
+
+<title>Средний балл по курсу | Университет</title>
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <div class="card card-body">
+            <div class="btn-group">
+                <a class="btn btn-sm btn-info" href="{% url 'averageGradeByCourse' %}" >Средний балл по курсу</a>
+                &nbsp;
+                <a class="btn btn-sm btn-info" href="{% url 'averageGradeBySubject' %}" >Средний балл по предметам</a>
+                &nbsp;
+                <a class="btn btn-sm btn-info" href="{% url 'totalAverageGrade' %}" >Итоговый средний балл</a>
+            </div>
+            &nbsp;
+                <h5 class="card-title">Средний балл по курсу:</h5>
+                    <table class="table table_sm">
+                    <tr>
+                        <th>Курс</th>
+                        <th>Средний балл</th>
+                    </tr>
+
+                    {% for grade in aver_grade %}
+
+                    <tr>
+                        <td>{{grade.course}}</td>
+                        <td>{{grade.average_grade |floatformat:2}}</td>
+                    </tr>
+
+                    {% endfor %}
+
+                    </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

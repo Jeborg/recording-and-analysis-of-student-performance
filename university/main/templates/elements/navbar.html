@@ -1,0 +1,62 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #075a69;">
+    <div class="container-fluid">
+    <img src="{% static '/images/university-logo.png' %}" width="50" height="50">
+    &nbsp;&nbsp;
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'home' %}">Новости университета</a>
+            </li>
+
+            {% if is_student %} 
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Обучение
+            </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'studentAcademicPerformance' %}">Успеваемость</a></li>
+                    <li><a class="dropdown-item" href="{% url 'averageGradeByCourse' %}">Средние баллы</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{% url 'debt' %}">Задолженности</a></li>
+                </ul>
+            </li>
+
+            {% endif %}
+
+            {% if is_professor %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Преподавание
+            </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'control' %}">Успеваемость моих студентов</a></li>
+                    <li><a class="dropdown-item" href="{% url 'studentsAverageGradeByGroup' %}">Средний балл моих студентов</a></li>
+                </ul>
+            </li>
+            {% endif %}
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Профиль
+            </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'profile' %}">Личный кабинет</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{% url 'logout' %}?next=/">Выход из учетной записи</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+      <!-- <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Найти" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Найти</button>
+      </form> -->
+    </div>
+  </nav>
